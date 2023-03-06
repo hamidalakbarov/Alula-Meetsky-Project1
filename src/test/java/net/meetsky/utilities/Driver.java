@@ -37,7 +37,6 @@ public class Driver {
                     driverPool.set(new FirefoxDriver());
                     break;
                 case "remote-chrome":
-
                     try { // to permanently handle checked exception cause by URL instance
                         // Step 1 - Create an instance of the URL class and provide the IP of the hub at the remote server
                         String ipAddress = "54.172.98.158";
