@@ -18,7 +18,7 @@ import org.junit.runner.RunWith;
         },
         publish = true,
         tags = "@wip",
-        dryRun = true
+        dryRun = false
 
 )
 
