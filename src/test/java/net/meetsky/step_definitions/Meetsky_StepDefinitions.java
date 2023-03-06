@@ -64,7 +64,7 @@ public class Meetsky_StepDefinitions {
 
     }
 
-    @When("user clicks on the three dots icon next to the file or folder.")
+    @When("user clicks on the three dots icon next to any file or folder.")
     public void user_clicks_on_the_three_dots_icon_next_to_the_file_or_folder() {
 
     }
