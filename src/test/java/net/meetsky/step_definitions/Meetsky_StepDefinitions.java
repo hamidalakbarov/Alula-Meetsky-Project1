@@ -78,11 +78,11 @@ public class Meetsky_StepDefinitions {
         Assert.assertEquals(expectedModules,actualModules);
 
     }
-    @Given("user is on the files page")
-    public void user_is_on_the_files_page() {
+    @Given("user is on the {string} page")
+    public void user_is_on_the_files_page(String pageName) {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
         loginPage.login();
-        filesPage.clickDashboardModules("Files");
+        filesPage.clickDashboardModules(pageName);
     }
     @When("user clicks on the three dots icon next to the file with the favorite icon")
     public void user_clicks_on_the_three_dots_icon_next_to_the_file_with_the_favorite_icon() {
