@@ -2,6 +2,8 @@ package net.meetsky.step_definitions;
 
 import io.cucumber.java.en.*;
 import net.meetsky.pages.FilesPage;
+import net.meetsky.pages.BasePage;
+import net.meetsky.pages.DashboardPage;
 import net.meetsky.pages.LoginPage;
 import net.meetsky.utilities.BrowserUtils;
 import net.meetsky.utilities.ConfigurationReader;
@@ -14,6 +16,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import java.security.Key;
+import java.util.ArrayList;
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +63,21 @@ public class Meetsky_StepDefinitions {
         BrowserUtils.verifyTitleContains(title);
     }
 
+    @And("user logins with valid credentials")
+    public void the_users_log_in_with_valid_credentials() {
+        loginPage.login(ConfigurationReader.getProperty("username"), ConfigurationReader.getProperty("password"));
+    }
+    DashboardPage dashboardPage = new DashboardPage();
+    @Then("Verify the user see the following modules:")
+    public void verify_the_user_see_the_following_modules( List<String> expectedModules) {
+
+        List <String> actualModules = new ArrayList<>();
+        for (WebElement each : dashboardPage.topModules) {
+            actualModules.add(each.getAttribute("aria-label"));
+        }
+        Assert.assertEquals(expectedModules,actualModules);
+
+    }
     @Given("user is on the files page")
     public void user_is_on_the_files_page() {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
