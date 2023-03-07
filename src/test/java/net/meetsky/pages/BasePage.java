@@ -19,4 +19,7 @@ public abstract class BasePage {
         String locator="//li[@data-id='"+option.toLowerCase()+"']";
         Driver.getDriver().findElement(By.xpath(locator)).click();
     }
+
+    @FindBy(xpath = "//li[@tabindex]//a[@aria-label]")
+    public List<WebElement> topModules;
 }
