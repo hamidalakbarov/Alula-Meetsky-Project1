@@ -2,7 +2,6 @@ package net.meetsky.step_definitions;
 
 import io.cucumber.java.en.*;
 import net.meetsky.pages.FilesPage;
-import net.meetsky.pages.BasePage;
 import net.meetsky.pages.DashboardPage;
 import net.meetsky.pages.LoginPage;
 import net.meetsky.utilities.BrowserUtils;
@@ -12,15 +11,11 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Meetsky_StepDefinitions {
 
@@ -162,7 +157,7 @@ public class Meetsky_StepDefinitions {
     public void the_user_uploads_a_file_with_the_upload_file_option() {
         // Using JS to click
         ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", filesPage.uploadFileButton);
-        filesPage.uploadFile(ConfigurationReader.getProperty("filePathUS_09"));
+        filesPage.uploadFileForMac(ConfigurationReader.getProperty("filePathUS_09"));
     }
 
     @Then("Verify the file is displayed on the page")

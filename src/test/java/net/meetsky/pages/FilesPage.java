@@ -2,11 +2,8 @@ package net.meetsky.pages;
 
 import net.meetsky.utilities.Driver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
@@ -68,7 +65,7 @@ public class FilesPage extends BasePage implements ElementDisplayed {
     @FindBy(xpath = "//button[.='Continue']")
     public WebElement continueButton;
 
-    public void uploadFile(String filePath) {
+    public void uploadFileForMac(String filePath) {
         // To copy file into the clipboard
         StringSelection stringSelection = new StringSelection(filePath);
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
