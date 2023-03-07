@@ -9,9 +9,6 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 
 public class FilesPage extends BasePage{
-    public FilesPage(){
-        PageFactory.initElements(Driver.getDriver(),this);
-    }
 
     @FindBy (linkText = "Favorites")
     public WebElement favouritesPageButton;

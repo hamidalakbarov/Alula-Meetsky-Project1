@@ -4,7 +4,7 @@ Feature: Favorites functionality
   As a user, I should be able to add and remove files/folders to/from favorites
 
   Background:
-    Given user is on the files page
+    Given user is on the "Files" page
 
   Scenario: Verify users to add files or folders to Favorites.
     When user clicks on the three dots icon next to any file or folder.
