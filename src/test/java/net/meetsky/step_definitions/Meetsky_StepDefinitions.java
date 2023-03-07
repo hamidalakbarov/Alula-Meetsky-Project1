@@ -65,7 +65,7 @@ public class Meetsky_StepDefinitions {
 
     @And("user logins with valid credentials")
     public void the_users_log_in_with_valid_credentials() {
-        loginPage.login(ConfigurationReader.getProperty("username"), ConfigurationReader.getProperty("password"));
+        loginPage.login();
     }
     DashboardPage dashboardPage = new DashboardPage();
     @Then("Verify the user see the following modules:")

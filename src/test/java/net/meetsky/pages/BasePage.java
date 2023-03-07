@@ -15,7 +15,7 @@ public abstract class BasePage {
         PageFactory.initElements(Driver.getDriver(),this);
     }
 
-    public static void clickDashboardModules(String option){
+    public void clickDashboardModules(String option){
         String locator="//li[@data-id='"+option.toLowerCase()+"']";
         Driver.getDriver().findElement(By.xpath(locator)).click();
     }
