@@ -82,7 +82,7 @@ public class Meetsky_StepDefinitions {
     public void user_is_on_the_files_page() {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
         loginPage.login();
-        Driver.getDriver().findElement(By.xpath("//a[@aria-label='Files']")).click();
+        filesPage.clickDashboardModules("Files");
     }
     @When("user clicks on the three dots icon next to the file with the favorite icon")
     public void user_clicks_on_the_three_dots_icon_next_to_the_file_with_the_favorite_icon() {
