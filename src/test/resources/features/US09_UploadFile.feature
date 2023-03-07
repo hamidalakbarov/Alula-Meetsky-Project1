@@ -1,7 +1,6 @@
 @hamid
 Feature: As a user, I should be able to upload files to existing folders on the Files page.
 
-  @wip
   Scenario:  Verify users can upload a file to an existing folder.
     Given user on the dashboard page
     When the user clicks the "Files" module
