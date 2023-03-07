@@ -9,15 +9,13 @@ import net.meetsky.utilities.BrowserUtils;
 import net.meetsky.utilities.ConfigurationReader;
 import net.meetsky.utilities.Driver;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -47,6 +45,7 @@ public class Meetsky_StepDefinitions {
     public void user_click_the_login_button() {
         loginPage.loginButton.click();
     }
+
     @When("user enter invalid {string} and {string}")
     public void user_enter_invalid_and(String username, String password) {
         loginPage.userNameInputBox.sendKeys(username);
@@ -55,7 +54,7 @@ public class Meetsky_StepDefinitions {
 
     @Then("verify {string} message should be displayed")
     public void verify_message_should_be_displayed(String message) {
-        Assert.assertEquals(message,loginPage.wrongUsernameMessage.getText());
+        Assert.assertEquals(message, loginPage.wrongUsernameMessage.getText());
     }
 
     @Then("verify the user should be at the {string} page")
@@ -67,40 +66,45 @@ public class Meetsky_StepDefinitions {
     public void the_users_log_in_with_valid_credentials() {
         loginPage.login();
     }
-    DashboardPage dashboardPage = new DashboardPage();
-    @Then("Verify the user see the following modules:")
-    public void verify_the_user_see_the_following_modules( List<String> expectedModules) {
 
-        List <String> actualModules = new ArrayList<>();
+    DashboardPage dashboardPage = new DashboardPage();
+
+    @Then("Verify the user see the following modules:")
+    public void verify_the_user_see_the_following_modules(List<String> expectedModules) {
+
+        List<String> actualModules = new ArrayList<>();
         for (WebElement each : dashboardPage.topModules) {
             actualModules.add(each.getAttribute("aria-label"));
         }
-        Assert.assertEquals(expectedModules,actualModules);
+        Assert.assertEquals(expectedModules, actualModules);
 
     }
+
     @Given("user is on the {string} page")
     public void user_is_on_the_files_page(String pageName) {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
         loginPage.login();
         filesPage.clickDashboardModules(pageName);
     }
+
     @When("user clicks on the three dots icon next to the file with the favorite icon")
     public void user_clicks_on_the_three_dots_icon_next_to_the_file_with_the_favorite_icon() {
 
-        if (filesPage.favouriteIcon.isDisplayed()){
+        if (filesPage.favouriteIcon.isDisplayed()) {
             filesPage.get3dotsMenuOf(1).click();
 
         }
     }
+
     @When("user clicks {string} option")
     public void user_clicks_option(String string) {
 
-        Driver.getDriver().findElement(By.xpath("//span[.='"+string+"']")).click();
+        Driver.getDriver().findElement(By.xpath("//span[.='" + string + "']")).click();
     }
 
     @Then("user shouldn't see the removed file or folder among favorites")
     public void user_shouldn_t_see_the_removed_file_folder_among_favorites() {
-        List<String> allFilesAndFoldersInFavourites=new ArrayList<>();
+        List<String> allFilesAndFoldersInFavourites = new ArrayList<>();
         for (WebElement each : filesPage.allFilesAndFolders_WEforNames_InFavorites) {
             allFilesAndFoldersInFavourites.add(each.getText());
         }
@@ -123,13 +127,48 @@ public class Meetsky_StepDefinitions {
     public void user_clicks_on_the_favorites_option_from_the_top_left_menu() {
         filesPage.favouritesPageButton.click();
     }
+
     @Then("user should see the added file in the favourites list")
     public void user_should_see_the_added_file_in_the_favourites_list() {
-        List<String> allFilesAndFoldersInFavourites=new ArrayList<>();
+        List<String> allFilesAndFoldersInFavourites = new ArrayList<>();
         for (WebElement each : filesPage.allFilesAndFolders_WEforNames_InFavorites) {
             allFilesAndFoldersInFavourites.add(each.getText());
         }
         Assert.assertTrue(allFilesAndFoldersInFavourites.contains(lastFileName));
     }
+
+    @Given("user on the dashboard page")
+    public void user_on_the_dashboard_page() {
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+        loginPage.login();
+    }
+
+    @When("the user clicks the {string} module")
+    public void the_user_clicks_the_module(String module) {
+        dashboardPage.clickDashboardModules(module);
+    }
+
+    @When("user choose a folder from the page")
+    public void user_choose_a_folder_from_the_page() {
+        filesPage.firstFolder.click();
+    }
+
+    @When("user clicks the add icon on the top")
+    public void user_clicks_the_add_icon_on_the_top() {
+        filesPage.addIcon.click();
+    }
+
+    @When("the user uploads a file with the upload file option")
+    public void the_user_uploads_a_file_with_the_upload_file_option() {
+        // Using JS to click
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", filesPage.uploadFileButton);
+        filesPage.uploadFile(ConfigurationReader.getProperty("filePathUS_09"));
+    }
+
+    @Then("Verify the file is displayed on the page")
+    public void verify_the_file_is_displayed_on_the_page() {
+        Assert.assertTrue(filesPage.elementIsDisplayed(ConfigurationReader.getProperty("filePathUS_09")));
+    }
+
 
 }
