@@ -132,4 +132,15 @@ public class Meetsky_StepDefinitions {
         Assert.assertTrue(allFilesAndFoldersInFavourites.contains(lastFileName));
     }
 
+    @When("the user clicks the {string} module")
+    public void the_user_clicks_the_module(String contacts) {
+    filesPage.clickDashboardModules(contacts);
+    }
+    @Then("verify the page title is {string}")
+    public void verify_the_page_title_is(String contacts) {
+    BrowserUtils.verifyTitleContains(contacts);
+    }
+
+
+
 }
