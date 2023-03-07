@@ -1,5 +1,6 @@
 package net.meetsky.pages;
 
+import net.meetsky.utilities.BrowserUtils;
 import net.meetsky.utilities.ConfigurationReader;
 import net.meetsky.utilities.Driver;
 import org.openqa.selenium.WebElement;
