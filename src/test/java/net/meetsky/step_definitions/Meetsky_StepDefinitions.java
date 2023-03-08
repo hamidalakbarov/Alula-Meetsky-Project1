@@ -32,8 +32,8 @@ public class Meetsky_StepDefinitions {
 
     @When("user use username {string} and passcode {string}")
     public void user_use_username_and_passcode(String username, String password) {
-        loginPage.userNameInputBox.sendKeys(username);
-        loginPage.passwordInputBox.sendKeys(password);
+        loginPage.login(username,password);
+
     }
 
     @When("user click the login button")
