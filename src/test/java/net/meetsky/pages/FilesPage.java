@@ -132,6 +132,19 @@ public class FilesPage extends BasePage implements ElementDisplayed {
     @FindBy(xpath = "//input[@class='comment__submit icon-confirm has-tooltip']")
     public WebElement submitArrow;
 
+    @FindBy(xpath = "//span[.='New folder']")
+    public WebElement NewFolder;
+
+    @FindBy(xpath = "(//input[@type='text'])[2]")
+    public WebElement inputNewFolder;
+
+    @FindBy(xpath = "(//input[@type='submit'])[2]")
+    public WebElement submit;
+
+    @FindBy(xpath = "//label[@for='select_all_files']/..")
+    public WebElement SelectFiles;
+
+
 
 }
 
