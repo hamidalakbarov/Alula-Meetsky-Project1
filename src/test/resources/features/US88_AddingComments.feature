@@ -7,7 +7,7 @@ Feature: Add comments to files/folders
     Given User is on the home page
     When user clicks "Files" option from top app menu
     And user clicks on the three dots icon next to any file or folder.
-    And user clicks "Details" option
+    And user clicks "Details" option from file 3dotsMenu
     And user clicks Comments option
     And user writs "A comment" inside the comment input box
     And user clicks submit button to post it
