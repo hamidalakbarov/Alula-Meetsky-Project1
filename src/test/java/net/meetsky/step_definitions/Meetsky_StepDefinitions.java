@@ -176,7 +176,7 @@ public class Meetsky_StepDefinitions {
 
     @When("user clicks {string} option from top app menu")
     public void userClicksOptionFromTopAppMenu(String moduleName) {
-        filesPage.anyModuleFromTopMenu(moduleName).click();
+        dashboardPage.clickDashboardModules(moduleName);
     }
     @And("user clicks Comments option")
     public void userClicksCommentsOption() {

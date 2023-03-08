@@ -132,8 +132,6 @@ public class FilesPage extends BasePage implements ElementDisplayed {
     @FindBy(xpath = "//input[@class='comment__submit icon-confirm has-tooltip']")
     public WebElement submitArrow;
 
-    public WebElement anyModuleFromTopMenu(String moduleName) {
-        return Driver.getDriver().findElement(By.xpath("//ul[@id='appmenu']//a[@aria-label='" + moduleName + "']"));
-    }
+
 }
 
