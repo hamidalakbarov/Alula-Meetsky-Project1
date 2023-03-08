@@ -6,6 +6,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import static net.meetsky.utilities.Driver.*;
@@ -97,4 +99,15 @@ public class BrowserUtils {
     public static void verifyUrlContains(String text) {
         Assert.assertTrue(getDriver().getCurrentUrl().contains(text));
     }
+
+    public static List<String> listOfWE_to_ListOfString(List<WebElement> targetList, String attribute) {
+        List<String> elementsAsString = new ArrayList<>();
+
+        for (WebElement each : targetList) {
+            elementsAsString.add(each.getAttribute(attribute));
+        }
+
+        return elementsAsString;
+    }
+
 }

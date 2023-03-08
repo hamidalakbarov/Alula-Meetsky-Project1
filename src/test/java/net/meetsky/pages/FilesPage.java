@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FilesPage extends BasePage implements ElementDisplayed {
@@ -131,6 +132,42 @@ public class FilesPage extends BasePage implements ElementDisplayed {
 
     @FindBy(xpath = "//input[@class='comment__submit icon-confirm has-tooltip']")
     public WebElement submitArrow;
+
+
+    @FindBy(xpath = "//span[contains(@class, 'extra-data')]")
+    public List<WebElement> allDeletedFilesFoldersList;
+
+
+    @FindBy(xpath = "//span[contains(@class, 'extra-data')]")
+    public List<WebElement> allFilesOnFilesPage;
+
+    @FindBy(xpath = "//a[@class='action action-menu permanent']")
+    public WebElement threeDots;
+
+    @FindBy(xpath = "//span[contains(@class, 'extra-data')]")
+    public WebElement firstFile;
+
+
+    public void clickActionIcons(String action) {
+        String locator = "//li[@class=' action-" + action.toLowerCase() + "-container']/a";
+        Driver.getDriver().findElement(By.xpath(locator)).click();
+    }
+
+    public void clickOnSubModules(String subModule) {
+        String locator = "//ul[@class ='with-icon']//a[.='" + subModule + "']";
+        Driver.getDriver().findElement(By.xpath(locator)).click();
+    }
+
+
+    public static List<String> listOfWE_to_ListOfString(List<WebElement> targetList, String attribute) {
+        List<String> elementsAsString = new ArrayList<>();
+
+        for (WebElement each : targetList) {
+            elementsAsString.add(each.getAttribute(attribute));
+        }
+
+        return elementsAsString;
+    }
 
 
 }
