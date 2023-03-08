@@ -88,4 +88,13 @@ public class BrowserUtils {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.invisibilityOf(target));
     }
+
+    public static void waitForElementToBeClickable(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(),Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    public static void verifyUrlContains(String text) {
+        Assert.assertTrue(getDriver().getCurrentUrl().contains(text));
+    }
 }
