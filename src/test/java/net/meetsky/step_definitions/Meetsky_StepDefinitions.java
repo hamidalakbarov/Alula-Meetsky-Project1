@@ -92,10 +92,13 @@ public class Meetsky_StepDefinitions {
 
         }
     }
-    @When("user clicks {string} option")
+    @When("user clicks {string} option from file 3dotsMenu")
     public void user_clicks_option(String string) {
-
-        Driver.getDriver().findElement(By.xpath("//span[.='"+string+"']")).click();
+        if (string.equals("Download")){
+            Driver.getDriver().findElement(By.xpath("(//span[.='"+string+"'])[2]")).click();
+        }else {
+            Driver.getDriver().findElement(By.xpath("//span[.='" + string + "']")).click();
+        }
     }
 
     @Then("user shouldn't see the removed file or folder among favorites")
