@@ -9,10 +9,8 @@ import net.meetsky.utilities.BrowserUtils;
 import net.meetsky.utilities.ConfigurationReader;
 import net.meetsky.utilities.Driver;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 
 import java.security.Key;
@@ -39,8 +37,8 @@ public class Meetsky_StepDefinitions {
 
     @When("user use username {string} and passcode {string}")
     public void user_use_username_and_passcode(String username, String password) {
-        loginPage.userNameInputBox.sendKeys(username);
-        loginPage.passwordInputBox.sendKeys(password);
+        loginPage.login(username,password);
+
     }
 
     @When("user click the login button")
@@ -132,9 +130,35 @@ public class Meetsky_StepDefinitions {
         Assert.assertTrue(allFilesAndFoldersInFavourites.contains(lastFileName));
     }
 
+    @Given("user on the dashboard page")
+    public void user_on_the_dashboard_page() {
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+        loginPage.login();
+    }
+
     @When("the user clicks the {string} module")
-    public void the_user_clicks_the_module(String contacts) {
-    filesPage.clickDashboardModules(contacts);
+    public void the_user_clicks_the_module(String module) {
+        dashboardPage.clickDashboardModules(module);
+    }
+
+    @When("user choose a folder from the page")
+    public void user_choose_a_folder_from_the_page() {
+        filesPage.firstFolder.click();
+    }
+
+    @When("user clicks the add icon on the top")
+    public void user_clicks_the_add_icon_on_the_top() {
+        filesPage.addIcon.click();
+    }
+    @When("the user uploads a file with the upload file option")
+    public void the_user_uploads_a_file_with_the_upload_file_option() {
+        // Using JS to click
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", filesPage.uploadFileButton);
+        filesPage.uploadFileForMac(ConfigurationReader.getProperty("filePathUS_09"));
+    }
+    @Then("Verify the file is displayed on the page")
+    public void verify_the_file_is_displayed_on_the_page() {
+        Assert.assertTrue(filesPage.elementIsDisplayed(ConfigurationReader.getProperty("filePathUS_09")));
     }
     @Then("verify the page title is {string}")
     public void verify_the_page_title_is(String contacts) {
