@@ -121,5 +121,19 @@ public class FilesPage extends BasePage implements ElementDisplayed {
         String textToLocate = text.substring(text.lastIndexOf('/') + 1, text.lastIndexOf('.'));
         return Driver.getDriver().findElement(By.xpath("//*[.='" + textToLocate + "']")).isDisplayed();
     }
+
+
+    @FindBy(xpath = "//a[@id='comments']")
+    public WebElement commentBtn;
+
+    @FindBy(xpath = "//div[contains(@placeholder,'Write message')]")
+    public WebElement commentInputBox;
+
+    @FindBy(xpath = "//input[@class='comment__submit icon-confirm has-tooltip']")
+    public WebElement submitArrow;
+
+    public WebElement anyModuleFromTopMenu(String moduleName) {
+        return Driver.getDriver().findElement(By.xpath("//ul[@id='appmenu']//a[@aria-label='" + moduleName + "']"));
+    }
 }
 

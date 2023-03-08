@@ -166,4 +166,36 @@ public class Meetsky_StepDefinitions {
     }
 
 
+
+
+    @Given("User is on the home page")
+    public void userIsOnTheHomePage() {
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+        loginPage.login();
+    }
+
+    @When("user clicks {string} option from top app menu")
+    public void userClicksOptionFromTopAppMenu(String moduleName) {
+        filesPage.anyModuleFromTopMenu(moduleName).click();
+    }
+    @And("user clicks Comments option")
+    public void userClicksCommentsOption() {
+        filesPage.commentBtn.click();
+    }
+
+
+    @And("user writs {string} inside the comment input box")
+    public void userWritsInsideTheCommentInputBox(String theComment) {
+        filesPage.commentInputBox.sendKeys(theComment);
+    }
+
+    @And("user clicks submit button to post it")
+    public void userClicksSubmitButtonToPostIt() {
+        filesPage.submitArrow.click();
+    }
+
+    @Then("user should see {string} displayed in the comment section")
+    public void userShouldSeeDisplayedInTheCommentSection(String theComment) {
+        Assert.assertTrue(Driver.getDriver().findElement(By.xpath("//div[normalize-space()='"+theComment+"']")).isDisplayed());
+    }
 }
