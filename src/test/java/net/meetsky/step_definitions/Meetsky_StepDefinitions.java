@@ -134,7 +134,7 @@ public class Meetsky_StepDefinitions {
         Assert.assertTrue(allFilesAndFoldersInFavourites.contains(lastFileName));
     }
 
-    @Given("user on the dashboard page")
+    @Given("users on the dashboard page")
     public void user_on_the_dashboard_page() {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
         loginPage.login();
@@ -152,7 +152,7 @@ public class Meetsky_StepDefinitions {
 
     @When("user clicks the add icon on the top")
     public void user_clicks_the_add_icon_on_the_top() {
-        filesPage.addIcon.click();
+        filesPage.plusIcon.click();
     }
 
     @When("the user uploads a file with the upload file option")
@@ -199,5 +199,28 @@ public class Meetsky_StepDefinitions {
     @Then("user should see {string} displayed in the comment section")
     public void userShouldSeeDisplayedInTheCommentSection(String theComment) {
         Assert.assertTrue(Driver.getDriver().findElement(By.xpath("//div[normalize-space()='"+theComment+"']")).isDisplayed());
+    }
+
+    @Given("user on the dashboard page")
+    public void users_on_the_dashboard_page() {
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+        loginPage.login();
+    }
+    @When("the users click the {string} module")
+    public void the_users_click_the_module(String file) {
+        filesPage.clickDashboardModules(file);
+    }
+    @When("the users click the add icon on the top")
+    public void the_users_click_the_add_icon_on_the_top() {
+        filesPage.plusIcon.click();
+    }
+    @When("users uploads file with the Upload file option")
+    public void users_uploads_file_with_the_option() {
+        filesPage.uploadFile.sendKeys(ConfigurationReader.getProperty("filePathUS07"));
+    }
+
+    @Then("verify file is displayed on the page")
+    public void verify_file_is_displayed_on_the_page() {
+        filesPage.addedFileIsDisplayed();
     }
 }
