@@ -2,20 +2,28 @@ package net.meetsky.step_definitions;
 
 import io.cucumber.java.en.*;
 import net.meetsky.pages.FilesPage;
+import net.meetsky.pages.BasePage;
 import net.meetsky.pages.DashboardPage;
 import net.meetsky.pages.LoginPage;
 import net.meetsky.utilities.BrowserUtils;
 import net.meetsky.utilities.ConfigurationReader;
 import net.meetsky.utilities.Driver;
 import org.junit.Assert;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Meetsky_StepDefinitions {
 
@@ -49,7 +57,7 @@ public class Meetsky_StepDefinitions {
 
     @Then("verify {string} message should be displayed")
     public void verify_message_should_be_displayed(String message) {
-        Assert.assertEquals(message, loginPage.wrongUsernameMessage.getText());
+        Assert.assertEquals(message,loginPage.wrongUsernameMessage.getText());
     }
 
     @Then("verify the user should be at the {string} page")
@@ -65,13 +73,13 @@ public class Meetsky_StepDefinitions {
     DashboardPage dashboardPage = new DashboardPage();
 
     @Then("Verify the user see the following modules:")
-    public void verify_the_user_see_the_following_modules(List<String> expectedModules) {
+    public void verify_the_user_see_the_following_modules( List<String> expectedModules) {
 
-        List<String> actualModules = new ArrayList<>();
+        List <String> actualModules = new ArrayList<>();
         for (WebElement each : dashboardPage.topModules) {
             actualModules.add(each.getAttribute("aria-label"));
         }
-        Assert.assertEquals(expectedModules, actualModules);
+        Assert.assertEquals(expectedModules,actualModules);
 
     }
 
@@ -90,11 +98,13 @@ public class Meetsky_StepDefinitions {
 
         }
     }
-
-    @When("user clicks {string} option")
+    @When("user clicks {string} option from file 3dotsMenu")
     public void user_clicks_option(String string) {
-
-        Driver.getDriver().findElement(By.xpath("//span[.='" + string + "']")).click();
+        if (string.equals("Download")){
+            Driver.getDriver().findElement(By.xpath("(//span[.='"+string+"'])[2]")).click();
+        }else {
+            Driver.getDriver().findElement(By.xpath("//span[.='" + string + "']")).click();
+        }
     }
 
     @Then("user shouldn't see the removed file or folder among favorites")
