@@ -7,6 +7,5 @@ import java.util.List;
 
 public class DashboardPage extends BasePage{
 
-    @FindBy(xpath = "//li[@tabindex]//a[@aria-label]")
-    public List<WebElement> topModules;
+
 }
