@@ -1,5 +1,5 @@
-
-Feature:
+@Latifa
+Feature: Upload file functionality
   US07: As a user, I should be able to upload a file.
 
   Background:
