@@ -9,10 +9,7 @@ import net.meetsky.utilities.BrowserUtils;
 import net.meetsky.utilities.ConfigurationReader;
 import net.meetsky.utilities.Driver;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 
 import java.security.Key;
@@ -208,4 +205,29 @@ public class Meetsky_StepDefinitions {
     public void userShouldSeeDisplayedInTheCommentSection(String theComment) {
         Assert.assertTrue(Driver.getDriver().findElement(By.xpath("//div[normalize-space()='"+theComment+"']")).isDisplayed());
     }
+
+
+    @Then("verify the page title is {string}")
+    public void verify_the_page_title_is(String expectedTitle) {
+        BrowserUtils.verifyTitle(expectedTitle);
+    }
+
+    @When("user click the top-left checkbox of the table")
+    public void user_click_the_top_left_checkbox_of_the_table() {
+        filesPage.selectAllFilesBox.click();
+
+    }
+    @Then("verify all the files are selected")
+    public void verify_all_the_files_are_selected() {
+
+        List<String> selectedFiles = new ArrayList<>();
+
+        for (WebElement each : filesPage.allFilesAndFoldersRowsElements){
+           selectedFiles.add(each.getAttribute("class"));
+        }
+
+        Assert.assertTrue(selectedFiles.contains("selected"));
+
+    }
+
 }
