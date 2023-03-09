@@ -257,5 +257,16 @@ public class Meetsky_StepDefinitions {
         Assert.assertTrue(listOfDeletedFiles.contains(deletedFileName));
     }
 
+    @Then("user can see following modules")
+    public void user_can_see_following_modules(List<String> expectedModules) {
+        List<String> allModules = new ArrayList<>();
+        for (WebElement eachModules : filesPage.navigations) {
+            allModules.add(eachModules.getText());
+        }
+        Assert.assertEquals(expectedModules,allModules);
+    }
+
+
+
 
 }

@@ -172,5 +172,8 @@ public class FilesPage extends BasePage implements ElementDisplayed {
         Driver.getDriver().findElement(By.xpath(locator)).click();
     }
 
+    @FindBy(xpath = "//div[@id='app-navigation-vue']//a")
+    public List<WebElement> navigations;
+
 }
 
