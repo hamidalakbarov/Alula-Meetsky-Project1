@@ -2,6 +2,7 @@ package net.meetsky.pages;
 
 import net.meetsky.utilities.ConfigurationReader;
 import net.meetsky.utilities.Driver;
+import org.apache.commons.exec.OS;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -10,6 +11,8 @@ import org.openqa.selenium.support.FindBy;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,48 +71,76 @@ public class FilesPage extends BasePage implements ElementDisplayed {
     @FindBy(xpath = "//button[.='Continue']")
     public WebElement continueButton;
 
-    public void uploadFileForMac(String filePath) {
-        // To copy file into the clipboard
+    String OperatingSystem = System.getProperty("os.name").toLowerCase();
+
+    public void uploadFile(String filePath) {
+
+        // Get file path as a string -> copy it to the System memory
         StringSelection stringSelection = new StringSelection(filePath);
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
 
-        // Creating instance of Robot class
-        Robot robot = null;
-        try {
-            robot = new Robot();
-        } catch (AWTException e) {
+        if (OperatingSystem.contains("mac")) {
+            // Creating instance of Robot class
+            Robot robot = null;
+            try {
+                robot = new Robot();
+            } catch (AWTException e) {
 
-        }
-        // to switch the window focus
-        robot.delay(500);
-        robot.keyPress(KeyEvent.VK_META); // press cmd
-        robot.keyPress(KeyEvent.VK_TAB); // press tab
-        robot.keyRelease(KeyEvent.VK_META); // release cmd
-        robot.keyRelease(KeyEvent.VK_TAB); // release tab
-        // to open GOTO window on MAC
-        robot.delay(500);
-        robot.keyPress(KeyEvent.VK_META); // press cmd
-        robot.keyPress(KeyEvent.VK_SHIFT); // press shift
-        robot.keyPress(KeyEvent.VK_G); // press enter
-        robot.keyRelease(KeyEvent.VK_META); // release cmd
-        robot.keyRelease(KeyEvent.VK_SHIFT); // release shift
-        robot.keyRelease(KeyEvent.VK_G); // release enter
-        // to paste file
-        robot.keyPress(KeyEvent.VK_META); // press cmd
-        robot.keyPress(KeyEvent.VK_V); // press V
-        robot.keyRelease(KeyEvent.VK_META); // release cmd
-        robot.keyRelease(KeyEvent.VK_V); // release V
-        robot.keyPress(KeyEvent.VK_ENTER); // press enter
-        robot.keyRelease(KeyEvent.VK_ENTER); // release enter
-        robot.delay(500);
-        robot.keyPress(KeyEvent.VK_ENTER); // press enter
-        robot.keyRelease(KeyEvent.VK_ENTER); // release enter
+            }
+            // to switch the window focus
+            robot.delay(500);
+            robot.keyPress(KeyEvent.VK_META); // press cmd
+            robot.keyPress(KeyEvent.VK_TAB); // press tab
+            robot.keyRelease(KeyEvent.VK_META); // release cmd
+            robot.keyRelease(KeyEvent.VK_TAB); // release tab
+            // to open GOTO window on MAC
+            robot.delay(500);
+            robot.keyPress(KeyEvent.VK_META); // press cmd
+            robot.keyPress(KeyEvent.VK_SHIFT); // press shift
+            robot.keyPress(KeyEvent.VK_G); // press enter
+            robot.keyRelease(KeyEvent.VK_META); // release cmd
+            robot.keyRelease(KeyEvent.VK_SHIFT); // release shift
+            robot.keyRelease(KeyEvent.VK_G); // release enter
+            // to paste file
+            robot.keyPress(KeyEvent.VK_META); // press cmd
+            robot.keyPress(KeyEvent.VK_V); // press V
+            robot.keyRelease(KeyEvent.VK_META); // release cmd
+            robot.keyRelease(KeyEvent.VK_V); // release V
+            robot.keyPress(KeyEvent.VK_ENTER); // press enter
+            robot.keyRelease(KeyEvent.VK_ENTER); // release enter
+            robot.delay(500);
+            robot.keyPress(KeyEvent.VK_ENTER); // press enter
+            robot.keyRelease(KeyEvent.VK_ENTER); // release enter
 
-        // to handle file duplicate html pop-up
-        try {
-            newFilesCheckbox.click();
-            continueButton.click();
-        } catch (RuntimeException e) {
+            // to handle file duplicate html pop-up
+            try {
+                newFilesCheckbox.click();
+                continueButton.click();
+            } catch (RuntimeException e) {
+            }
+        } else if (OperatingSystem.contains("win")) {
+            // Create a robot class object
+            Robot robot = null;
+            try {
+                robot = new Robot();
+            } catch (AWTException e) {
+            }
+
+            robot.delay(1000);
+            //CTRL+V action then ENTER
+            robot.keyPress(KeyEvent.VK_CONTROL); //press CTRL
+            robot.keyPress(KeyEvent.VK_V); //press V
+            robot.keyRelease(KeyEvent.VK_CONTROL); // release CTRL
+            robot.keyRelease(KeyEvent.VK_V); // release V
+            robot.keyPress(KeyEvent.VK_ENTER); //Press ENTER
+            robot.keyRelease(KeyEvent.VK_ENTER); //Release ENTER
+
+            // to handle file duplicate html pop-up
+            try {
+                newFilesCheckbox.click();
+                continueButton.click();
+            } catch (RuntimeException e) {
+            }
         }
     } // by using Robot class
 
@@ -120,8 +151,13 @@ public class FilesPage extends BasePage implements ElementDisplayed {
      */
     @Override
     public boolean elementIsDisplayed(String text) {
-        // to read the text from file path an locate web element
-        String textToLocate = text.substring(text.lastIndexOf('/') + 1, text.lastIndexOf('.'));
+        String textToLocate = "";
+        if (OperatingSystem.contains("mac")) {
+            // to read the text from file path an locate web element
+            textToLocate = text.substring(text.lastIndexOf('/') + 1, text.lastIndexOf('.'));
+        } else if (OperatingSystem.contains("win")) {
+            textToLocate = text.substring(text.lastIndexOf('\\') + 1, text.lastIndexOf('.'));
+        }
         return Driver.getDriver().findElement(By.xpath("//*[.='" + textToLocate + "']")).isDisplayed();
     }
 
@@ -173,8 +209,8 @@ public class FilesPage extends BasePage implements ElementDisplayed {
     }
 
 
-    public void checkCommentIsDisplayed(String theComment){
-        WebElement commentWE=Driver.getDriver().findElement(By.xpath("//div[normalize-space()='"+theComment+"']"));
+    public void checkCommentIsDisplayed(String theComment) {
+        WebElement commentWE = Driver.getDriver().findElement(By.xpath("//div[normalize-space()='" + theComment + "']"));
         Assert.assertTrue(commentWE.isDisplayed());
     }
 
