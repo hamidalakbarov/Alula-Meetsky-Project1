@@ -225,6 +225,41 @@ public class Meetsky_StepDefinitions {
     }
 
 
+    @Given("user is on the home page")
+    public void user_is_on_the_home_page() {
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+        loginPage.login();
+    }
+    @When("user clicks the {string} module")
+    public void user_clicks_the_module(String fileModule) {
+        dashboardPage.clickDashboardModules(fileModule);
+    }
+
+    @When("user clicks action-icon from any file on the page")
+    public void user_clicks_action_icon_from_any_file_on_the_page() {
+        filesPage.threeDots.click();
+    }
+
+    @When("user chooses the {string} file or folder option")
+    public void user_chooses_the_option(String action) {
+        filesPage.clickActionIcons(action);
+    }
+
+    @When("user clicks the {string} sub-module on the left side")
+    public void user_clicks_the_sub_module_on_the_left_side(String subModule) {
+        filesPage.clickOnSubModules(subModule);
+    }
+
+    @Then("Verify the deleted file is displayed on the Deleted Files page")
+    public void verify_the_deleted_file_is_displayed_on_the_deleted_files_page() {
+        String deletedFileName = filesPage.firstFile.getAttribute("title");
+        List<String> listOfDeletedFiles = BrowserUtils.listOfWE_to_ListOfString(filesPage.allDeletedFilesFoldersList, "title");
+        Assert.assertTrue(listOfDeletedFiles.contains(deletedFileName));
+    }
+
+
+
+
     @Given("the user on the dashboard page")
     public void the_user_on_the_dashboard_page() {
        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
