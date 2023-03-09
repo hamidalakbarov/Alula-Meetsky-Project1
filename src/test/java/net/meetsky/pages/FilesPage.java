@@ -72,12 +72,14 @@ public class FilesPage extends BasePage implements ElementDisplayed {
     public WebElement continueButton;
 
     String OperatingSystem = System.getProperty("os.name").toLowerCase();
-    public void uploadFileForMac(String filePath) {
-        if (OperatingSystem.contains("mac")) {
-            // To copy file into the clipboard
-            StringSelection stringSelection = new StringSelection(filePath);
-            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
 
+    public void uploadFile(String filePath) {
+
+        // Get file path as a string -> copy it to the System memory
+        StringSelection stringSelection = new StringSelection(filePath);
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+
+        if (OperatingSystem.contains("mac")) {
             // Creating instance of Robot class
             Robot robot = null;
             try {
@@ -116,12 +118,7 @@ public class FilesPage extends BasePage implements ElementDisplayed {
                 continueButton.click();
             } catch (RuntimeException e) {
             }
-        }else if(OperatingSystem.contains("win")){
-
-            // Get file path as a string -> copy it to the System memory
-            StringSelection ss = new StringSelection(ConfigurationReader.getProperty("filePathUS_09_forOleksandr"));
-            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss,null);
-
+        } else if (OperatingSystem.contains("win")) {
             // Create a robot class object
             Robot robot = null;
             try {
@@ -137,6 +134,13 @@ public class FilesPage extends BasePage implements ElementDisplayed {
             robot.keyRelease(KeyEvent.VK_V); // release V
             robot.keyPress(KeyEvent.VK_ENTER); //Press ENTER
             robot.keyRelease(KeyEvent.VK_ENTER); //Release ENTER
+
+            // to handle file duplicate html pop-up
+            try {
+                newFilesCheckbox.click();
+                continueButton.click();
+            } catch (RuntimeException e) {
+            }
         }
     } // by using Robot class
 
@@ -147,8 +151,13 @@ public class FilesPage extends BasePage implements ElementDisplayed {
      */
     @Override
     public boolean elementIsDisplayed(String text) {
-        // to read the text from file path an locate web element
-        String textToLocate = text.substring(text.lastIndexOf('/') + 1, text.lastIndexOf('.'));
+        String textToLocate = "";
+        if (OperatingSystem.contains("mac")) {
+            // to read the text from file path an locate web element
+            textToLocate = text.substring(text.lastIndexOf('/') + 1, text.lastIndexOf('.'));
+        } else if (OperatingSystem.contains("win")) {
+            textToLocate = text.substring(text.lastIndexOf('\\') + 1, text.lastIndexOf('.'));
+        }
         return Driver.getDriver().findElement(By.xpath("//*[.='" + textToLocate + "']")).isDisplayed();
     }
 
@@ -200,8 +209,8 @@ public class FilesPage extends BasePage implements ElementDisplayed {
     }
 
 
-    public void checkCommentIsDisplayed(String theComment){
-        WebElement commentWE=Driver.getDriver().findElement(By.xpath("//div[normalize-space()='"+theComment+"']"));
+    public void checkCommentIsDisplayed(String theComment) {
+        WebElement commentWE = Driver.getDriver().findElement(By.xpath("//div[normalize-space()='" + theComment + "']"));
         Assert.assertTrue(commentWE.isDisplayed());
     }
 

@@ -160,12 +160,12 @@ public class Meetsky_StepDefinitions {
     public void the_user_uploads_a_file_with_the_upload_file_option() {
         // Using JS to click
         ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", filesPage.uploadFileButton);
-        filesPage.uploadFileForMac(ConfigurationReader.getProperty("filePathUS_09"));
+        filesPage.uploadFile(ConfigurationReader.getProperty("filePathUS_09_forOleksandr"));
     }
 
     @Then("Verify the file is displayed on the page")
     public void verify_the_file_is_displayed_on_the_page() {
-        Assert.assertTrue(filesPage.elementIsDisplayed(ConfigurationReader.getProperty("filePathUS_09")));
+        Assert.assertTrue(filesPage.elementIsDisplayed(ConfigurationReader.getProperty("filePathUS_09_forOleksandr")));
     }
     @Then("verify the page title is {string}")
     public void verify_the_page_title_is(String contacts) {
