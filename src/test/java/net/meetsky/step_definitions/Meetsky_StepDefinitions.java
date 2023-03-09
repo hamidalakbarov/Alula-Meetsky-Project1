@@ -32,7 +32,7 @@ public class Meetsky_StepDefinitions {
 
     @When("user use username {string} and passcode {string}")
     public void user_use_username_and_passcode(String username, String password) {
-        loginPage.login(username,password);
+        loginPage.login(username, password);
 
     }
 
@@ -90,11 +90,12 @@ public class Meetsky_StepDefinitions {
 
         }
     }
+
     @When("user clicks {string} option from file 3dotsMenu")
     public void user_clicks_option(String string) {
-        if (string.equals("Download")){
-            Driver.getDriver().findElement(By.xpath("(//span[.='"+string+"'])[2]")).click();
-        }else {
+        if (string.equals("Download")) {
+            Driver.getDriver().findElement(By.xpath("(//span[.='" + string + "'])[2]")).click();
+        } else {
             Driver.getDriver().findElement(By.xpath("//span[.='" + string + "']")).click();
         }
     }
@@ -166,10 +167,12 @@ public class Meetsky_StepDefinitions {
     public void verify_the_file_is_displayed_on_the_page() {
         Assert.assertTrue(filesPage.elementIsDisplayed(ConfigurationReader.getProperty("filePathUS_09")));
     }
+
     @Then("verify the page title is {string}")
     public void verify_the_page_title_is(String contacts) {
-    BrowserUtils.verifyTitleContains(contacts);
+        BrowserUtils.verifyTitleContains(contacts);
     }
+
     @Given("User is on the home page")
     public void userIsOnTheHomePage() {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
@@ -180,6 +183,7 @@ public class Meetsky_StepDefinitions {
     public void userClicksOptionFromTopAppMenu(String moduleName) {
         dashboardPage.clickDashboardModules(moduleName);
     }
+
     @And("user clicks Comments option")
     public void userClicksCommentsOption() {
         filesPage.commentBtn.click();
@@ -198,7 +202,7 @@ public class Meetsky_StepDefinitions {
 
     @Then("user should see {string} displayed in the comment section")
     public void userShouldSeeDisplayedInTheCommentSection(String theComment) {
-        Assert.assertTrue(Driver.getDriver().findElement(By.xpath("//div[normalize-space()='"+theComment+"']")).isDisplayed());
+        Assert.assertTrue(Driver.getDriver().findElement(By.xpath("//div[normalize-space()='" + theComment + "']")).isDisplayed());
     }
 
     @Given("user on the dashboard page")
@@ -206,14 +210,17 @@ public class Meetsky_StepDefinitions {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
         loginPage.login();
     }
+
     @When("the users click the {string} module")
     public void the_users_click_the_module(String file) {
         filesPage.clickDashboardModules(file);
     }
+
     @When("the users click the add icon on the top")
     public void the_users_click_the_add_icon_on_the_top() {
         filesPage.plusIcon.click();
     }
+
     @When("users uploads file with the Upload file option")
     public void users_uploads_file_with_the_option() {
         filesPage.uploadFile.sendKeys(ConfigurationReader.getProperty("filePathUS07"));
@@ -230,6 +237,7 @@ public class Meetsky_StepDefinitions {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
         loginPage.login();
     }
+
     @When("user clicks the {string} module")
     public void user_clicks_the_module(String fileModule) {
         dashboardPage.clickDashboardModules(fileModule);
@@ -258,12 +266,10 @@ public class Meetsky_StepDefinitions {
     }
 
 
-
-
     @Given("the user on the dashboard page")
     public void the_user_on_the_dashboard_page() {
-       Driver.getDriver().get(ConfigurationReader.getProperty("url"));
-       loginPage.login();
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+        loginPage.login();
     }
 
     @When("the users click {string} module")
@@ -275,9 +281,10 @@ public class Meetsky_StepDefinitions {
     public void user_clicks_settings_on_the_left_bottom_corner() {
         filesPage.settingsButton.click();
     }
+
     @Then("the user should be able to click any checkbox")
     public void the_user_should_be_able_to_click_any_checkbox() {
-      Assert.assertTrue(filesPage.showRecommendationsCheckBox.isEnabled());
+        Assert.assertTrue(filesPage.checkBoxesIsEnable());
     }
 
 
