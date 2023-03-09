@@ -265,10 +265,12 @@ public class Meetsky_StepDefinitions {
        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
        loginPage.login();
     }
-    @When("user clicks the {string} module")
-    public void user_clicks_the_module(String fileModule) {
+
+    @When("the users click {string} module")
+    public void the_users_click_module(String fileModule) {
         filesPage.clickDashboardModules(fileModule);
     }
+
     @When("user clicks Settings on the left bottom corner")
     public void user_clicks_settings_on_the_left_bottom_corner() {
         filesPage.settingsButton.click();
