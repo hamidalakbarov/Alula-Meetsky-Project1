@@ -1,5 +1,5 @@
 @US13-LF
-Feature:
+Feature: Search functionality
   US13: As a user, I should be able to search any item/ users from the homepage.
 
   Background:

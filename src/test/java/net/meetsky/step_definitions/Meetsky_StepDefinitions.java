@@ -280,6 +280,4 @@ public class Meetsky_StepDefinitions {
         Assert.assertEquals(ConfigurationReader.getProperty("searchValue"), searchPage.displayedResult.getText());
     }
 
-
-
 }
