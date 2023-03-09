@@ -4,6 +4,7 @@ import io.cucumber.java.en.*;
 import net.meetsky.pages.FilesPage;
 import net.meetsky.pages.DashboardPage;
 import net.meetsky.pages.LoginPage;
+import net.meetsky.pages.SearchPage;
 import net.meetsky.utilities.BrowserUtils;
 import net.meetsky.utilities.ConfigurationReader;
 import net.meetsky.utilities.Driver;
@@ -198,7 +199,7 @@ public class Meetsky_StepDefinitions {
 
     @Then("user should see {string} displayed in the comment section")
     public void userShouldSeeDisplayedInTheCommentSection(String theComment) {
-        Assert.assertTrue(Driver.getDriver().findElement(By.xpath("//div[normalize-space()='"+theComment+"']")).isDisplayed());
+        filesPage.checkCommentIsDisplayed(theComment);
     }
 
     @Given("user on the dashboard page")
@@ -268,5 +269,26 @@ public class Meetsky_StepDefinitions {
 
 
 
+
+
+    SearchPage searchPage =new SearchPage();
+
+    @Given("user logged in to the app")
+    public void user_logged_in_to_the_app() {
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+        loginPage.login();
+    }
+    @When("the user clicks the magnifier icon on the right top")
+    public void the_user_clicks_the_magnifier_icon_on_the_right_top() {
+        searchPage.magnifierIcon.click();
+    }
+    @When("users search any existing file or folder or user name")
+    public void users_search_any_existing_file_or_folder_or_user_name() {
+        searchPage.searchInputBox.sendKeys(ConfigurationReader.getProperty("searchValue"));
+    }
+    @Then("verify the app displays the expected result option")
+    public void verify_the_app_displays_the_expected_result_option() {
+        Assert.assertEquals(ConfigurationReader.getProperty("searchValue"), searchPage.displayedResult.getText());
+    }
 
 }
