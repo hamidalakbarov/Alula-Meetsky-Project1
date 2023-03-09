@@ -4,6 +4,7 @@ import io.cucumber.java.en.*;
 import net.meetsky.pages.FilesPage;
 import net.meetsky.pages.DashboardPage;
 import net.meetsky.pages.LoginPage;
+import net.meetsky.pages.SearchPage;
 import net.meetsky.utilities.BrowserUtils;
 import net.meetsky.utilities.ConfigurationReader;
 import net.meetsky.utilities.Driver;
@@ -167,12 +168,10 @@ public class Meetsky_StepDefinitions {
     public void verify_the_file_is_displayed_on_the_page() {
         Assert.assertTrue(filesPage.elementIsDisplayed(ConfigurationReader.getProperty("filePathUS_09")));
     }
-
     @Then("verify the page title is {string}")
     public void verify_the_page_title_is(String contacts) {
-        BrowserUtils.verifyTitleContains(contacts);
+    BrowserUtils.verifyTitleContains(contacts);
     }
-
     @Given("User is on the home page")
     public void userIsOnTheHomePage() {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
@@ -183,7 +182,6 @@ public class Meetsky_StepDefinitions {
     public void userClicksOptionFromTopAppMenu(String moduleName) {
         dashboardPage.clickDashboardModules(moduleName);
     }
-
     @And("user clicks Comments option")
     public void userClicksCommentsOption() {
         filesPage.commentBtn.click();
@@ -202,7 +200,7 @@ public class Meetsky_StepDefinitions {
 
     @Then("user should see {string} displayed in the comment section")
     public void userShouldSeeDisplayedInTheCommentSection(String theComment) {
-        Assert.assertTrue(Driver.getDriver().findElement(By.xpath("//div[normalize-space()='" + theComment + "']")).isDisplayed());
+        filesPage.checkCommentIsDisplayed(theComment);
     }
 
     @Given("user on the dashboard page")
@@ -210,17 +208,14 @@ public class Meetsky_StepDefinitions {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
         loginPage.login();
     }
-
     @When("the users click the {string} module")
     public void the_users_click_the_module(String file) {
         filesPage.clickDashboardModules(file);
     }
-
     @When("the users click the add icon on the top")
     public void the_users_click_the_add_icon_on_the_top() {
         filesPage.plusIcon.click();
     }
-
     @When("users uploads file with the Upload file option")
     public void users_uploads_file_with_the_option() {
         filesPage.uploadFile.sendKeys(ConfigurationReader.getProperty("filePathUS07"));
@@ -237,7 +232,6 @@ public class Meetsky_StepDefinitions {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
         loginPage.login();
     }
-
     @When("user clicks the {string} module")
     public void user_clicks_the_module(String fileModule) {
         dashboardPage.clickDashboardModules(fileModule);
@@ -265,6 +259,27 @@ public class Meetsky_StepDefinitions {
         Assert.assertTrue(listOfDeletedFiles.contains(deletedFileName));
     }
 
+
+
+    SearchPage searchPage =new SearchPage();
+
+    @Given("user logged in to the app")
+    public void user_logged_in_to_the_app() {
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+        loginPage.login();
+    }
+    @When("the user clicks the magnifier icon on the right top")
+    public void the_user_clicks_the_magnifier_icon_on_the_right_top() {
+        searchPage.magnifierIcon.click();
+    }
+    @When("users search any existing file or folder or user name")
+    public void users_search_any_existing_file_or_folder_or_user_name() {
+        searchPage.searchInputBox.sendKeys(ConfigurationReader.getProperty("searchValue"));
+    }
+    @Then("verify the app displays the expected result option")
+    public void verify_the_app_displays_the_expected_result_option() {
+        Assert.assertEquals(ConfigurationReader.getProperty("searchValue"), searchPage.displayedResult.getText());
+    }
 
     @Given("the user on the dashboard page")
     public void the_user_on_the_dashboard_page() {
