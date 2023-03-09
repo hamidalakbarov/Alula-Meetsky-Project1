@@ -4,6 +4,7 @@ import io.cucumber.java.en.*;
 import net.meetsky.pages.FilesPage;
 import net.meetsky.pages.DashboardPage;
 import net.meetsky.pages.LoginPage;
+import net.meetsky.pages.SearchPage;
 import net.meetsky.utilities.BrowserUtils;
 import net.meetsky.utilities.ConfigurationReader;
 import net.meetsky.utilities.Driver;
@@ -49,7 +50,7 @@ public class Meetsky_StepDefinitions {
 
     @Then("verify {string} message should be displayed")
     public void verify_message_should_be_displayed(String message) {
-        Assert.assertEquals(message,loginPage.wrongUsernameMessage.getText());
+        Assert.assertEquals(message, loginPage.wrongUsernameMessage.getText());
     }
 
     @Then("verify the user should be at the {string} page")
@@ -65,13 +66,13 @@ public class Meetsky_StepDefinitions {
     DashboardPage dashboardPage = new DashboardPage();
 
     @Then("Verify the user see the following modules:")
-    public void verify_the_user_see_the_following_modules( List<String> expectedModules) {
+    public void verify_the_user_see_the_following_modules(List<String> expectedModules) {
 
-        List <String> actualModules = new ArrayList<>();
+        List<String> actualModules = new ArrayList<>();
         for (WebElement each : dashboardPage.topModules) {
             actualModules.add(each.getAttribute("aria-label"));
         }
-        Assert.assertEquals(expectedModules,actualModules);
+        Assert.assertEquals(expectedModules, actualModules);
 
     }
 
@@ -134,7 +135,7 @@ public class Meetsky_StepDefinitions {
         Assert.assertTrue(allFilesAndFoldersInFavourites.contains(lastFileName));
     }
 
-    @Given("user on the dashboard page")
+    @Given("users on the dashboard page")
     public void user_on_the_dashboard_page() {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
         loginPage.login();
@@ -152,7 +153,7 @@ public class Meetsky_StepDefinitions {
 
     @When("user clicks the add icon on the top")
     public void user_clicks_the_add_icon_on_the_top() {
-        filesPage.addIcon.click();
+        filesPage.plusIcon.click();
     }
 
     @When("the user uploads a file with the upload file option")
@@ -166,10 +167,10 @@ public class Meetsky_StepDefinitions {
     public void verify_the_file_is_displayed_on_the_page() {
         Assert.assertTrue(filesPage.elementIsDisplayed(ConfigurationReader.getProperty("filePathUS_09")));
     }
-
-
-
-
+    @Then("verify the page title is {string}")
+    public void verify_the_page_title_is(String contacts) {
+    BrowserUtils.verifyTitleContains(contacts);
+    }
     @Given("User is on the home page")
     public void userIsOnTheHomePage() {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
@@ -200,6 +201,85 @@ public class Meetsky_StepDefinitions {
     public void userShouldSeeDisplayedInTheCommentSection(String theComment) {
         Assert.assertTrue(Driver.getDriver().findElement(By.xpath("//div[normalize-space()='"+theComment+"']")).isDisplayed());
     }
+
+    @Given("user on the dashboard page")
+    public void users_on_the_dashboard_page() {
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+        loginPage.login();
+    }
+    @When("the users click the {string} module")
+    public void the_users_click_the_module(String file) {
+        filesPage.clickDashboardModules(file);
+    }
+    @When("the users click the add icon on the top")
+    public void the_users_click_the_add_icon_on_the_top() {
+        filesPage.plusIcon.click();
+    }
+    @When("users uploads file with the Upload file option")
+    public void users_uploads_file_with_the_option() {
+        filesPage.uploadFile.sendKeys(ConfigurationReader.getProperty("filePathUS07"));
+    }
+
+    @Then("verify file is displayed on the page")
+    public void verify_file_is_displayed_on_the_page() {
+        filesPage.addedFileIsDisplayed();
+    }
+
+
+    @Given("user is on the home page")
+    public void user_is_on_the_home_page() {
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+        loginPage.login();
+    }
+    @When("user clicks the {string} module")
+    public void user_clicks_the_module(String fileModule) {
+        dashboardPage.clickDashboardModules(fileModule);
+    }
+
+    @When("user clicks action-icon from any file on the page")
+    public void user_clicks_action_icon_from_any_file_on_the_page() {
+        filesPage.threeDots.click();
+    }
+
+    @When("user chooses the {string} file or folder option")
+    public void user_chooses_the_option(String action) {
+        filesPage.clickActionIcons(action);
+    }
+
+    @When("user clicks the {string} sub-module on the left side")
+    public void user_clicks_the_sub_module_on_the_left_side(String subModule) {
+        filesPage.clickOnSubModules(subModule);
+    }
+
+    @Then("Verify the deleted file is displayed on the Deleted Files page")
+    public void verify_the_deleted_file_is_displayed_on_the_deleted_files_page() {
+        String deletedFileName = filesPage.firstFile.getAttribute("title");
+        List<String> listOfDeletedFiles = BrowserUtils.listOfWE_to_ListOfString(filesPage.allDeletedFilesFoldersList, "title");
+        Assert.assertTrue(listOfDeletedFiles.contains(deletedFileName));
+    }
+
+
+
+    SearchPage searchPage =new SearchPage();
+
+    @Given("user logged in to the app")
+    public void user_logged_in_to_the_app() {
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+        loginPage.login();
+    }
+    @When("the user clicks the magnifier icon on the right top")
+    public void the_user_clicks_the_magnifier_icon_on_the_right_top() {
+        searchPage.magnifierIcon.click();
+    }
+    @When("users search any existing file or folder or user name")
+    public void users_search_any_existing_file_or_folder_or_user_name() {
+        searchPage.searchInputBox.sendKeys(ConfigurationReader.getProperty("searchValue"));
+    }
+    @Then("verify the app displays the expected result option")
+    public void verify_the_app_displays_the_expected_result_option() {
+        Assert.assertEquals(ConfigurationReader.getProperty("searchValue"), searchPage.displayedResult.getText());
+    }
+
 
     //Saja US
     FilesPage filePage = new FilesPage();

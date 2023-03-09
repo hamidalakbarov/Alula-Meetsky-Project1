@@ -1,6 +1,8 @@
 package net.meetsky.pages;
 
+import net.meetsky.utilities.ConfigurationReader;
 import net.meetsky.utilities.Driver;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,6 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FilesPage extends BasePage implements ElementDisplayed {
@@ -132,6 +135,42 @@ public class FilesPage extends BasePage implements ElementDisplayed {
     @FindBy(xpath = "//input[@class='comment__submit icon-confirm has-tooltip']")
     public WebElement submitArrow;
 
+    @FindBy(xpath = "//span[@class='icon icon-add']")
+    public WebElement plusIcon;
+
+    @FindBy(xpath = "//input[@type ='file']")
+    public WebElement uploadFile;
+
+    public void addedFileIsDisplayed() {
+        java.util.List<WebElement> addedFiles = Driver.getDriver().findElements(By.xpath("//a[@class='name']"));
+        List<String> filesTexts = new ArrayList<>();
+        for (WebElement eachFile : addedFiles) {
+            filesTexts.add(eachFile.getText());
+        }
+        String expectedName = ConfigurationReader.getProperty("filePathUS07").substring(ConfigurationReader.getProperty("filePathUS07").lastIndexOf('/') + 1);
+        Assert.assertTrue(filesTexts.contains(expectedName));
+    }
+
+
+    @FindBy(xpath = "//span[contains(@class, 'extra-data')]")
+    public List<WebElement> allDeletedFilesFoldersList;
+
+    @FindBy(xpath = "//a[@class='action action-menu permanent']")
+    public WebElement threeDots;
+
+    @FindBy(xpath = "//span[contains(@class, 'extra-data')]")
+    public WebElement firstFile;
+
+
+    public void clickActionIcons(String action) {
+        String locator = "//li[@class=' action-" + action.toLowerCase() + "-container']/a";
+        Driver.getDriver().findElement(By.xpath(locator)).click();
+    }
+
+    public void clickOnSubModules(String subModule) {
+        String locator = "//ul[@class ='with-icon']//a[.='" + subModule + "']";
+        Driver.getDriver().findElement(By.xpath(locator)).click();
+    }
     @FindBy(xpath = "//span[.='New folder']")
     public WebElement NewFolder;
 
