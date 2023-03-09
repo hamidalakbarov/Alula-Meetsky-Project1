@@ -172,5 +172,11 @@ public class FilesPage extends BasePage implements ElementDisplayed {
         Driver.getDriver().findElement(By.xpath(locator)).click();
     }
 
+
+    public void checkCommentIsDisplayed(String theComment){
+        WebElement commentWE=Driver.getDriver().findElement(By.xpath("//div[normalize-space()='"+theComment+"']"));
+        Assert.assertTrue(commentWE.isDisplayed());
+    }
+
 }
 

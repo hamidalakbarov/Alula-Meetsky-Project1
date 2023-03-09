@@ -199,7 +199,7 @@ public class Meetsky_StepDefinitions {
 
     @Then("user should see {string} displayed in the comment section")
     public void userShouldSeeDisplayedInTheCommentSection(String theComment) {
-        Assert.assertTrue(Driver.getDriver().findElement(By.xpath("//div[normalize-space()='"+theComment+"']")).isDisplayed());
+        filesPage.checkCommentIsDisplayed(theComment);
     }
 
     @Given("user on the dashboard page")
