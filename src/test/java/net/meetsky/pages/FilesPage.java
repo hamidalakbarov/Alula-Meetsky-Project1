@@ -178,5 +178,25 @@ public class FilesPage extends BasePage implements ElementDisplayed {
         Assert.assertTrue(commentWE.isDisplayed());
     }
 
+
+    @FindBy(xpath = "//button[@class='settings-button']")
+    public WebElement settingsButton;
+
+    @FindBy(xpath = "//label[@for='showRichWorkspacesToggle']")
+    public WebElement firstCheckBox;
+
+    @FindBy(xpath = "//label[@for='recommendationsEnabledToggle']")
+    public WebElement secondCheckBox;
+
+    @FindBy(xpath = "//label[@for='showhiddenfilesToggle']")
+    public WebElement thirdCheckBox;
+
+    @FindBy(xpath = "//label[@for='cropimagepreviewsToggle']")
+    public WebElement fourthCheckBox;
+
+    public boolean checkBoxesIsEnable() {
+        return firstCheckBox.isEnabled() && secondCheckBox.isEnabled() && thirdCheckBox.isEnabled() && fourthCheckBox.isEnabled();
+    }
+
 }
 
