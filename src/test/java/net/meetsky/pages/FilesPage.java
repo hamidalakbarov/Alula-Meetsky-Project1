@@ -151,6 +151,9 @@ public class FilesPage extends BasePage implements ElementDisplayed {
         Assert.assertTrue(filesTexts.contains(expectedName));
     }
 
-
+    @FindBy(xpath = "//button[@class='settings-button']")
+    public WebElement settingsButton;
+    @FindBy(xpath = "//label[@for='recommendationsEnabledToggle']")
+    public WebElement showRecommendationsCheckBox;
 }
 

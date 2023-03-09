@@ -223,4 +223,25 @@ public class Meetsky_StepDefinitions {
     public void verify_file_is_displayed_on_the_page() {
         filesPage.addedFileIsDisplayed();
     }
+
+
+    @Given("the user on the dashboard page")
+    public void the_user_on_the_dashboard_page() {
+       Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+       loginPage.login();
+    }
+    @When("user clicks the {string} module")
+    public void user_clicks_the_module(String fileModule) {
+        filesPage.clickDashboardModules(fileModule);
+    }
+    @When("user clicks Settings on the left bottom corner")
+    public void user_clicks_settings_on_the_left_bottom_corner() {
+        filesPage.settingsButton.click();
+    }
+    @Then("the user should be able to click any checkbox")
+    public void the_user_should_be_able_to_click_any_checkbox() {
+      Assert.assertTrue(filesPage.showRecommendationsCheckBox.isEnabled());
+    }
+
+
 }
