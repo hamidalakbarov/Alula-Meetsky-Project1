@@ -22,4 +22,7 @@ public abstract class BasePage {
 
     @FindBy(xpath = "//li[@tabindex]//a[@aria-label]")
     public List<WebElement> topModules;
+
+    @FindBy(xpath = "//span[@role ='img']")
+    public WebElement magnifierIcon;
 }
