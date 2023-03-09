@@ -198,5 +198,8 @@ public class FilesPage extends BasePage implements ElementDisplayed {
         return firstCheckBox.isEnabled() && secondCheckBox.isEnabled() && thirdCheckBox.isEnabled() && fourthCheckBox.isEnabled();
     }
 
+    @FindBy(xpath = "//div[@id='app-navigation-vue']//a")
+    public List<WebElement> navigations;
+
 }
 
