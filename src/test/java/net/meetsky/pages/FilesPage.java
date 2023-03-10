@@ -207,6 +207,19 @@ public class FilesPage extends BasePage implements ElementDisplayed {
         String locator = "//ul[@class ='with-icon']//a[.='" + subModule + "']";
         Driver.getDriver().findElement(By.xpath(locator)).click();
     }
+    @FindBy(xpath = "//span[.='New folder']")
+    public WebElement NewFolder;
+
+    @FindBy(xpath = "(//input[@type='text'])[2]")
+    public WebElement inputNewFolder;
+
+    @FindBy(xpath = "(//input[@type='submit'])[2]")
+    public WebElement submit;
+
+    @FindBy(xpath = "//label[@for='select_all_files']/..")
+    public WebElement SelectFiles;
+
+
     @FindBy(id="headerSelection")
     public WebElement selectAllFilesBox;
 

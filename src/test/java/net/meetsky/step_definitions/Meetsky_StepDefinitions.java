@@ -33,7 +33,7 @@ public class Meetsky_StepDefinitions {
 
     @When("user use username {string} and passcode {string}")
     public void user_use_username_and_passcode(String username, String password) {
-        loginPage.login(username,password);
+        loginPage.login(username, password);
 
     }
 
@@ -91,11 +91,12 @@ public class Meetsky_StepDefinitions {
 
         }
     }
+
     @When("user clicks {string} option from file 3dotsMenu")
     public void user_clicks_option(String string) {
-        if (string.equals("Download")){
-            Driver.getDriver().findElement(By.xpath("(//span[.='"+string+"'])[2]")).click();
-        }else {
+        if (string.equals("Download")) {
+            Driver.getDriver().findElement(By.xpath("(//span[.='" + string + "'])[2]")).click();
+        } else {
             Driver.getDriver().findElement(By.xpath("//span[.='" + string + "']")).click();
         }
     }
@@ -160,12 +161,12 @@ public class Meetsky_StepDefinitions {
     public void the_user_uploads_a_file_with_the_upload_file_option() {
         // Using JS to click
         ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", filesPage.uploadFileButton);
-        filesPage.uploadFile(ConfigurationReader.getProperty("filePathUS_09"));
+        filesPage.uploadFile(ConfigurationReader.getProperty("filePathUS_09_forOleksandr"));
     }
 
     @Then("Verify the file is displayed on the page")
     public void verify_the_file_is_displayed_on_the_page() {
-        Assert.assertTrue(filesPage.elementIsDisplayed(ConfigurationReader.getProperty("filePathUS_09")));
+        Assert.assertTrue(filesPage.elementIsDisplayed(ConfigurationReader.getProperty("filePathUS_09_forOleksandr")));
     }
     @Then("verify the page title is {string}")
     public void verify_the_page_title_is(String contacts) {
@@ -199,7 +200,7 @@ public class Meetsky_StepDefinitions {
 
     @Then("user should see {string} displayed in the comment section")
     public void userShouldSeeDisplayedInTheCommentSection(String theComment) {
-        Assert.assertTrue(Driver.getDriver().findElement(By.xpath("//div[normalize-space()='"+theComment+"']")).isDisplayed());
+        filesPage.checkCommentIsDisplayed(theComment);
     }
 
     @Given("user on the dashboard page")
@@ -258,6 +259,17 @@ public class Meetsky_StepDefinitions {
         Assert.assertTrue(listOfDeletedFiles.contains(deletedFileName));
     }
 
+    @Then("user can see following modules")
+    public void user_can_see_following_modules(List<String> expectedModules) {
+        List<String> allModules = new ArrayList<>();
+        for (WebElement eachModules : filesPage.navigations) {
+            allModules.add(eachModules.getText());
+        }
+        Assert.assertEquals(expectedModules,allModules);
+    }
+
+
+
 
 
     SearchPage searchPage =new SearchPage();
@@ -301,6 +313,28 @@ public class Meetsky_StepDefinitions {
         Assert.assertTrue(filesPage.checkBoxesIsEnable());
     }
 
+
+    @When("user click new folder")
+    public void user_click_new_folder() {
+        filesPage.NewFolder.click();
+    }
+    @When("user write a folder name")
+    public void user_write_a_folder_name() {
+        filesPage.inputNewFolder.sendKeys("Saja Folder");
+        BrowserUtils.sleep(2);
+    }
+    @When("the user click submit icon")
+    public void the_user_click_submit_icon() {
+        filesPage.submit.click();
+        BrowserUtils.sleep(2);
+    }
+    @Then("Verify the folder is displayed on the page")
+    public void verify_the_folder_is_displayed_on_the_page() {
+        filesPage.SelectFiles.isDisplayed();
+        String expected = "Saja Folder";
+
+       Assert.assertTrue(expected,filesPage.SelectFiles.isDisplayed());
+    }
 
 
 
