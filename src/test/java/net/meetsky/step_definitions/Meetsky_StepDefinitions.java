@@ -314,4 +314,26 @@ public class Meetsky_StepDefinitions {
     }
 
 
+    @When("user click new folder")
+    public void user_click_new_folder() {
+        filesPage.NewFolder.click();
+    }
+    @When("user write a folder name")
+    public void user_write_a_folder_name() {
+        filesPage.inputNewFolder.sendKeys("Saja Folder");
+        BrowserUtils.sleep(2);
+    }
+    @When("the user click submit icon")
+    public void the_user_click_submit_icon() {
+        filesPage.submit.click();
+        BrowserUtils.sleep(2);
+    }
+    @Then("Verify the folder is displayed on the page")
+    public void verify_the_folder_is_displayed_on_the_page() {
+        filesPage.SelectFiles.isDisplayed();
+        String expected = "Saja Folder";
+
+       Assert.assertTrue(expected,filesPage.SelectFiles.isDisplayed());
+    }
+
 }
