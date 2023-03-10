@@ -314,30 +314,26 @@ public class Meetsky_StepDefinitions {
     }
 
 
-
-    //Saja US
-    FilesPage filePage = new FilesPage();
-
-    @When("user click \"new folder”")
+    @When("user click new folder")
     public void user_click_new_folder() {
-        filePage.NewFolder.click();
+        filesPage.NewFolder.click();
     }
     @When("user write a folder name")
     public void user_write_a_folder_name() {
-        filePage.inputNewFolder.sendKeys("Saja Folder");
+        filesPage.inputNewFolder.sendKeys("Saja Folder");
         BrowserUtils.sleep(2);
     }
     @When("the user click submit icon")
     public void the_user_click_submit_icon() {
-        filePage.submit.click();
+        filesPage.submit.click();
         BrowserUtils.sleep(2);
     }
     @Then("Verify the folder is displayed on the page")
     public void verify_the_folder_is_displayed_on_the_page() {
-        filePage.SelectFiles.isDisplayed();
+        filesPage.SelectFiles.isDisplayed();
         String expected = "Saja Folder";
 
-       Assert.assertTrue(expected,filePage.SelectFiles.isDisplayed());
+       Assert.assertTrue(expected,filesPage.SelectFiles.isDisplayed());
     }
 
 }
