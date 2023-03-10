@@ -280,6 +280,28 @@ public class Meetsky_StepDefinitions {
         Assert.assertEquals(ConfigurationReader.getProperty("searchValue"), searchPage.displayedResult.getText());
     }
 
+    @Given("the user on the dashboard page")
+    public void the_user_on_the_dashboard_page() {
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+        loginPage.login();
+    }
+
+    @When("the users click {string} module")
+    public void the_users_click_module(String fileModule) {
+        filesPage.clickDashboardModules(fileModule);
+    }
+
+    @When("user clicks Settings on the left bottom corner")
+    public void user_clicks_settings_on_the_left_bottom_corner() {
+        filesPage.settingsButton.click();
+    }
+
+    @Then("the user should be able to click any checkbox")
+    public void the_user_should_be_able_to_click_any_checkbox() {
+        Assert.assertTrue(filesPage.checkBoxesIsEnable());
+    }
+
+
 
 
     @Then("verify the page title is as given {string}")
