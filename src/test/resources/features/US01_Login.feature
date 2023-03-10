@@ -1,3 +1,4 @@
+@login
 Feature: Login Functionality
   User Story: US01 As a user, I should be able to log in.
 

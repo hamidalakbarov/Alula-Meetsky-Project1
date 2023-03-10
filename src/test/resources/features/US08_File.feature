@@ -1,3 +1,4 @@
+@regression
 Feature: As a user, I should be able to add/create folders.
   Story: : As a user, I should be able to add/create folders.
 @Saja

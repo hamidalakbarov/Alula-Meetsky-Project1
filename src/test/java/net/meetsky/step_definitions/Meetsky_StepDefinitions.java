@@ -223,7 +223,7 @@ public class Meetsky_StepDefinitions {
 
     @Then("verify file is displayed on the page")
     public void verify_file_is_displayed_on_the_page() {
-        filesPage.addedFileIsDisplayed();
+        filesPage.elementIsDisplayed(ConfigurationReader.getProperty("filePath"));
     }
 
     @Given("user is on the home page")
