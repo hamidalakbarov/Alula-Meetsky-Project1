@@ -160,7 +160,7 @@ public class Meetsky_StepDefinitions {
     public void the_user_uploads_a_file_with_the_upload_file_option() {
         // Using JS to click
         ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", filesPage.uploadFileButton);
-        filesPage.uploadFileForMac(ConfigurationReader.getProperty("filePathUS_09"));
+        filesPage.uploadFile(ConfigurationReader.getProperty("filePathUS_09"));
     }
 
     @Then("Verify the file is displayed on the page")
