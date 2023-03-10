@@ -1,4 +1,4 @@
-@Dan
+@Dan @regression
 Feature: Add comments to files/folders
   User Story:
   As a user, I should be able to write comments to files/folders.

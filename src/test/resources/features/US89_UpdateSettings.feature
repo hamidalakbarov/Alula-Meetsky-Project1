@@ -1,4 +1,4 @@
-@lina
+@lina @regression
 Feature: Update settings
   US89: As a user, I should be able to update settings.
 
