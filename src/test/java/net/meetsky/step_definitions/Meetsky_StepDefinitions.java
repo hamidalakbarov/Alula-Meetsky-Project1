@@ -67,13 +67,11 @@ public class Meetsky_StepDefinitions {
 
     @Then("Verify the user see the following modules:")
     public void verify_the_user_see_the_following_modules(List<String> expectedModules) {
-
         List<String> actualModules = new ArrayList<>();
         for (WebElement each : dashboardPage.topModules) {
             actualModules.add(each.getAttribute("aria-label"));
         }
         Assert.assertEquals(expectedModules, actualModules);
-
     }
 
     @Given("user is on the {string} page")
@@ -85,10 +83,8 @@ public class Meetsky_StepDefinitions {
 
     @When("user clicks on the three dots icon next to the file with the favorite icon")
     public void user_clicks_on_the_three_dots_icon_next_to_the_file_with_the_favorite_icon() {
-
         if (filesPage.favouriteIcon.isDisplayed()) {
             filesPage.get3dotsMenuOf(1).click();
-
         }
     }
 
@@ -114,7 +110,6 @@ public class Meetsky_StepDefinitions {
     public void user_clicks_on_the_three_dots_icon_next_to_the_file_or_folder() {
         List<WebElement> allFilesAndFoldersRowsElements = filesPage.allFilesAndFoldersRowsElements;
         int numberOfFiles = allFilesAndFoldersRowsElements.size();
-
         lastFileName = filesPage.getFileNameOf(numberOfFiles);
         WebElement lastFile3dotsMenu = filesPage.get3dotsMenuOf(numberOfFiles);
         Actions action = new Actions(Driver.getDriver());
@@ -161,17 +156,19 @@ public class Meetsky_StepDefinitions {
     public void the_user_uploads_a_file_with_the_upload_file_option() {
         // Using JS to click
         ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", filesPage.uploadFileButton);
-        filesPage.uploadFile(ConfigurationReader.getProperty("filePathUS_09_forOleksandr"));
+        filesPage.uploadFile(ConfigurationReader.getProperty("filePath"));
     }
 
     @Then("Verify the file is displayed on the page")
     public void verify_the_file_is_displayed_on_the_page() {
-        Assert.assertTrue(filesPage.elementIsDisplayed(ConfigurationReader.getProperty("filePathUS_09_forOleksandr")));
+        Assert.assertTrue(filesPage.elementIsDisplayed(ConfigurationReader.getProperty("filePath")));
     }
+
     @Then("verify the page title is {string}")
     public void verify_the_page_title_is(String contacts) {
-    BrowserUtils.verifyTitleContains(contacts);
+        BrowserUtils.verifyTitleContains(contacts);
     }
+
     @Given("User is on the home page")
     public void userIsOnTheHomePage() {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
@@ -182,11 +179,11 @@ public class Meetsky_StepDefinitions {
     public void userClicksOptionFromTopAppMenu(String moduleName) {
         dashboardPage.clickDashboardModules(moduleName);
     }
+
     @And("user clicks Comments option")
     public void userClicksCommentsOption() {
         filesPage.commentBtn.click();
     }
-
 
     @And("user writs {string} inside the comment input box")
     public void userWritsInsideTheCommentInputBox(String theComment) {
@@ -208,17 +205,20 @@ public class Meetsky_StepDefinitions {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
         loginPage.login();
     }
+
     @When("the users click the {string} module")
     public void the_users_click_the_module(String file) {
         filesPage.clickDashboardModules(file);
     }
+
     @When("the users click the add icon on the top")
     public void the_users_click_the_add_icon_on_the_top() {
         filesPage.plusIcon.click();
     }
+
     @When("users uploads file with the Upload file option")
     public void users_uploads_file_with_the_option() {
-        filesPage.uploadFile.sendKeys(ConfigurationReader.getProperty("filePathUS07"));
+        filesPage.uploadFile.sendKeys(ConfigurationReader.getProperty("filePath"));
     }
 
     @Then("verify file is displayed on the page")
@@ -232,6 +232,7 @@ public class Meetsky_StepDefinitions {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
         loginPage.login();
     }
+
     @When("user clicks the {string} module")
     public void user_clicks_the_module(String fileModule) {
         dashboardPage.clickDashboardModules(fileModule);
@@ -265,28 +266,27 @@ public class Meetsky_StepDefinitions {
         for (WebElement eachModules : filesPage.navigations) {
             allModules.add(eachModules.getText());
         }
-        Assert.assertEquals(expectedModules,allModules);
+        Assert.assertEquals(expectedModules, allModules);
     }
 
-
-
-
-
-    SearchPage searchPage =new SearchPage();
+    SearchPage searchPage = new SearchPage();
 
     @Given("user logged in to the app")
     public void user_logged_in_to_the_app() {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
         loginPage.login();
     }
+
     @When("the user clicks the magnifier icon on the right top")
     public void the_user_clicks_the_magnifier_icon_on_the_right_top() {
         searchPage.magnifierIcon.click();
     }
+
     @When("users search any existing file or folder or user name")
     public void users_search_any_existing_file_or_folder_or_user_name() {
         searchPage.searchInputBox.sendKeys(ConfigurationReader.getProperty("searchValue"));
     }
+
     @Then("verify the app displays the expected result option")
     public void verify_the_app_displays_the_expected_result_option() {
         Assert.assertEquals(ConfigurationReader.getProperty("searchValue"), searchPage.displayedResult.getText());
@@ -318,22 +318,24 @@ public class Meetsky_StepDefinitions {
     public void user_click_new_folder() {
         filesPage.NewFolder.click();
     }
+
     @When("user write a folder name")
     public void user_write_a_folder_name() {
         filesPage.inputNewFolder.sendKeys("Saja Folder");
         BrowserUtils.sleep(2);
     }
+
     @When("the user click submit icon")
     public void the_user_click_submit_icon() {
         filesPage.submit.click();
         BrowserUtils.sleep(2);
     }
+
     @Then("Verify the folder is displayed on the page")
     public void verify_the_folder_is_displayed_on_the_page() {
         filesPage.SelectFiles.isDisplayed();
         String expected = "Saja Folder";
-
-       Assert.assertTrue(expected,filesPage.SelectFiles.isDisplayed());
+        Assert.assertTrue(expected, filesPage.SelectFiles.isDisplayed());
     }
 
     @Then("verify the page title is as given {string}")

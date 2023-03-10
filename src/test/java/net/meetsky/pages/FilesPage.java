@@ -85,7 +85,6 @@ public class FilesPage extends BasePage implements ElementDisplayed {
             try {
                 robot = new Robot();
             } catch (AWTException e) {
-
             }
             // to switch the window focus
             robot.delay(500);
@@ -161,7 +160,6 @@ public class FilesPage extends BasePage implements ElementDisplayed {
         return Driver.getDriver().findElement(By.xpath("//*[.='" + textToLocate + "']")).isDisplayed();
     }
 
-
     @FindBy(xpath = "//a[@id='comments']")
     public WebElement commentBtn;
 
@@ -183,10 +181,10 @@ public class FilesPage extends BasePage implements ElementDisplayed {
         for (WebElement eachFile : addedFiles) {
             filesTexts.add(eachFile.getText());
         }
-        String expectedName = ConfigurationReader.getProperty("filePathUS07").substring(ConfigurationReader.getProperty("filePathUS07").lastIndexOf('/') + 1);
+        String expectedName = ConfigurationReader.getProperty("filePath");
+        expectedName = expectedName.substring(expectedName.lastIndexOf('/') + 1);
         Assert.assertTrue(filesTexts.contains(expectedName));
     }
-
 
     @FindBy(xpath = "//span[contains(@class, 'extra-data')]")
     public List<WebElement> allDeletedFilesFoldersList;
@@ -197,7 +195,6 @@ public class FilesPage extends BasePage implements ElementDisplayed {
     @FindBy(xpath = "//span[contains(@class, 'extra-data')]")
     public WebElement firstFile;
 
-
     public void clickActionIcons(String action) {
         String locator = "//li[@class=' action-" + action.toLowerCase() + "-container']/a";
         Driver.getDriver().findElement(By.xpath(locator)).click();
@@ -207,6 +204,7 @@ public class FilesPage extends BasePage implements ElementDisplayed {
         String locator = "//ul[@class ='with-icon']//a[.='" + subModule + "']";
         Driver.getDriver().findElement(By.xpath(locator)).click();
     }
+
     @FindBy(xpath = "//span[.='New folder']")
     public WebElement NewFolder;
 
@@ -230,7 +228,6 @@ public class FilesPage extends BasePage implements ElementDisplayed {
         Assert.assertTrue(commentWE.isDisplayed());
     }
 
-
     @FindBy(xpath = "//button[@class='settings-button']")
     public WebElement settingsButton;
 
@@ -252,6 +249,5 @@ public class FilesPage extends BasePage implements ElementDisplayed {
 
     @FindBy(xpath = "//div[@id='app-navigation-vue']//a")
     public List<WebElement> navigations;
-
 }
 
