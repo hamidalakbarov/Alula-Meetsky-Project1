@@ -1,3 +1,4 @@
+@smoke
 Feature: Photos Module
   US: As a user, I want to access to Photos module
 
