@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
                 "json:target/cucumber.json"
         },
         publish = true,
-        tags = "@Saja",
+        tags = "",
         dryRun = false
 
 )
