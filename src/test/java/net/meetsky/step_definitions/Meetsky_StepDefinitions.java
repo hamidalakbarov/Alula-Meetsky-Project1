@@ -33,7 +33,7 @@ public class Meetsky_StepDefinitions {
 
     @When("user use username {string} and passcode {string}")
     public void user_use_username_and_passcode(String username, String password) {
-        loginPage.login(username,password);
+        loginPage.login(username, password);
 
     }
 
@@ -91,11 +91,12 @@ public class Meetsky_StepDefinitions {
 
         }
     }
+
     @When("user clicks {string} option from file 3dotsMenu")
     public void user_clicks_option(String string) {
-        if (string.equals("Download")){
-            Driver.getDriver().findElement(By.xpath("(//span[.='"+string+"'])[2]")).click();
-        }else {
+        if (string.equals("Download")) {
+            Driver.getDriver().findElement(By.xpath("(//span[.='" + string + "'])[2]")).click();
+        } else {
             Driver.getDriver().findElement(By.xpath("//span[.='" + string + "']")).click();
         }
     }
@@ -160,12 +161,12 @@ public class Meetsky_StepDefinitions {
     public void the_user_uploads_a_file_with_the_upload_file_option() {
         // Using JS to click
         ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", filesPage.uploadFileButton);
-        filesPage.uploadFileForMac(ConfigurationReader.getProperty("filePathUS_09"));
+        filesPage.uploadFile(ConfigurationReader.getProperty("filePathUS_09_forOleksandr"));
     }
 
     @Then("Verify the file is displayed on the page")
     public void verify_the_file_is_displayed_on_the_page() {
-        Assert.assertTrue(filesPage.elementIsDisplayed(ConfigurationReader.getProperty("filePathUS_09")));
+        Assert.assertTrue(filesPage.elementIsDisplayed(ConfigurationReader.getProperty("filePathUS_09_forOleksandr")));
     }
     @Then("verify the page title is {string}")
     public void verify_the_page_title_is(String contacts) {
@@ -258,6 +259,17 @@ public class Meetsky_StepDefinitions {
         Assert.assertTrue(listOfDeletedFiles.contains(deletedFileName));
     }
 
+    @Then("user can see following modules")
+    public void user_can_see_following_modules(List<String> expectedModules) {
+        List<String> allModules = new ArrayList<>();
+        for (WebElement eachModules : filesPage.navigations) {
+            allModules.add(eachModules.getText());
+        }
+        Assert.assertEquals(expectedModules,allModules);
+    }
+
+
+
 
 
     SearchPage searchPage =new SearchPage();
@@ -279,6 +291,28 @@ public class Meetsky_StepDefinitions {
     public void verify_the_app_displays_the_expected_result_option() {
         Assert.assertEquals(ConfigurationReader.getProperty("searchValue"), searchPage.displayedResult.getText());
     }
+
+    @Given("the user on the dashboard page")
+    public void the_user_on_the_dashboard_page() {
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+        loginPage.login();
+    }
+
+    @When("the users click {string} module")
+    public void the_users_click_module(String fileModule) {
+        filesPage.clickDashboardModules(fileModule);
+    }
+
+    @When("user clicks Settings on the left bottom corner")
+    public void user_clicks_settings_on_the_left_bottom_corner() {
+        filesPage.settingsButton.click();
+    }
+
+    @Then("the user should be able to click any checkbox")
+    public void the_user_should_be_able_to_click_any_checkbox() {
+        Assert.assertTrue(filesPage.checkBoxesIsEnable());
+    }
+
 
 
     //Saja US
