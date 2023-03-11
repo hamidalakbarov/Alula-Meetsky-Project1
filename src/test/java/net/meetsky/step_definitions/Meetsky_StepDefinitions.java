@@ -219,11 +219,13 @@ public class Meetsky_StepDefinitions {
     @When("users uploads file with the Upload file option")
     public void users_uploads_file_with_the_option() {
         filesPage.uploadFile.sendKeys(ConfigurationReader.getProperty("filePath"));
+        BrowserUtils.sleep(3);
+
     }
 
     @Then("verify file is displayed on the page")
     public void verify_file_is_displayed_on_the_page() {
-        filesPage.elementIsDisplayed(ConfigurationReader.getProperty("filePath"));
+        filesPage.addedFileIsDisplayed();
     }
 
 

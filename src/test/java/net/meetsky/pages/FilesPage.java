@@ -179,16 +179,22 @@ public class FilesPage extends BasePage implements ElementDisplayed {
     public WebElement uploadFile;
 
     public void addedFileIsDisplayed() {
-        java.util.List<WebElement> addedFiles = Driver.getDriver().findElements(By.xpath("//a[@class='name']"));
+
+        List<WebElement> addedFiles = Driver.getDriver().findElements(By.xpath("//a[@class='name']//span[@class='innernametext']"));
+
         List<String> filesTexts = new ArrayList<>();
         for (WebElement eachFile : addedFiles) {
             filesTexts.add(eachFile.getText());
         }
+
         String expectedName = ConfigurationReader.getProperty("filePath");
-        expectedName = expectedName.substring(expectedName.lastIndexOf('/') + 1);
+        if (OperatingSystem.contains("mac")) {
+            expectedName = expectedName.substring(expectedName.lastIndexOf('/') + 1, expectedName.lastIndexOf('.'));
+        } else {
+            expectedName = expectedName.substring(expectedName.lastIndexOf('"') + 1, expectedName.lastIndexOf('.'));
+        }
         Assert.assertTrue(filesTexts.contains(expectedName));
     }
-
     @FindBy(xpath = "//span[contains(@class, 'extra-data')]")
     public List<WebElement> allDeletedFilesFoldersList;
 
