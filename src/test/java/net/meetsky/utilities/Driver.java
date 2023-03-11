@@ -37,7 +37,7 @@ public class Driver {
                     current driver session such as headless mode, start maximized or allow remote
                      */
                     ChromeOptions options = new ChromeOptions();
-                    options.addArguments("--remote-allow-origins=*"); // to allow remote execution (after recent updates to Chrome))
+                    options.addArguments("--remote-allow-origins=*"); // configuration adjustment after recent updates to Chrome
                     options.addArguments("--headless"); // to execute test in headless mode
                     options.addArguments("start-maximized"); // to open browser with maximized window
                     driverPool.set(new ChromeDriver(options));
