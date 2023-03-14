@@ -38,7 +38,7 @@ public class Driver {
                      */
                     ChromeOptions options = new ChromeOptions();
                     options.addArguments("--remote-allow-origins=*"); // configuration adjustment after recent updates to Chrome
-                    options.addArguments("--headless"); // to execute test in headless mode
+                    //options.addArguments("--headless"); // to execute test in headless mode
                     options.addArguments("start-maximized"); // to open browser with maximized window
                     driverPool.set(new ChromeDriver(options));
                     break;

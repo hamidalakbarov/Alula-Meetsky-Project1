@@ -226,11 +226,8 @@ public class FilesPage extends BasePage implements ElementDisplayed {
     @FindBy(xpath = "//label[@for='select_all_files']/..")
     public WebElement SelectFiles;
 
-
     @FindBy(id="headerSelection")
     public WebElement selectAllFilesBox;
-
-
 
     public void checkCommentIsDisplayed(String theComment) {
         WebElement commentWE = Driver.getDriver().findElement(By.xpath("//div[normalize-space()='" + theComment + "']"));
